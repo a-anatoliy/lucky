@@ -1,0 +1,6 @@
+.gallery { padding-top: 100px !important; }
+.galleryName { margin-left: 42px; }
+/*.clear { clear:both; }*/
+.galleryMoshna { float:left !important; }
+.photo-link { padding:5px; margin:5px; border:1px solid #ccc; display:block; width:212px !important; float:left; }
+.photo-link:hover { border-color: #761c19; }

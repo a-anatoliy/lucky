@@ -8,6 +8,7 @@
 *.jpg
 *.mov
 *.avi
+*.zip
 
 .idea
 

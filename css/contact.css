@@ -1,0 +1,48 @@
+section#contact {
+    background-color: white;
+    /*background-image: url('http://artdnaswitchbd.com/componants/images/map-image.png');*/
+    background-position: center;
+    background-repeat: no-repeat;
+/*    height: 600px !important;*/
+}
+
+section { padding: 1px 1px !important; }
+
+section#contact .form-group { margin-bottom: 25px; }
+section#contact .form-group input,
+section#contact .form-group input.form-control { height: auto; }
+
+section#contact .form-group textarea { padding: 20px; }
+section#contact .form-group textarea.form-control { height: 236px; }
+
+section#contact .form-control:focus { border-color: #fed136; box-shadow: none; }
+section#contact ::-webkit-input-placeholder {
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #dcdcdc;
+}
+section#contact :-moz-placeholder {
+    /* Firefox 18- */
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #dcdcdc;
+}
+section#contact ::-moz-placeholder {
+    /* Firefox 19+ */
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #dcdcdc;
+}
+section#contact :-ms-input-placeholder {
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #dcdcdc;
+}
+section#contact .text-danger { color: #e74c3c; }
+.about_our_company { text-align: center; }
+.about_our_company h1 { font-size: 25px; }
+
