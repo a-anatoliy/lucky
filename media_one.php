@@ -100,51 +100,50 @@ session_start();
 
 <div class="container gallery">
     <div class="row text-center">
-        <div class="col-sm-12 col-md-8 col-lg-9 text-center">
+<!--        <div class="col-sm-12 col-md-8 col-lg-9 text-center">-->
+        <div class="col-lg-12">
             <h4 class="galleryName">GALLERY</h4>
-            <div class="gallerImages">
+            <span class="gallery5">
+                <?php
+                /** settings **/
+                $images_dir = 'img/sessions/dayOne';
+                $thumbs_dir = 'img/sessions/dayOne/thumbs';
 
-                <div class="galleryMoshna">
-                    <?php
-                    /** settings **/
-                    $images_dir = 'img/sessions/dayOne';
-                    $thumbs_dir = 'img/sessions/dayOne/thumbs';
+                /** generate photo gallery **/
+                $image_files = get_files($images_dir);
+                if(count($image_files)) {
+                    $index = 0;
+                    foreach($image_files as $index => $file) {
+                        $index++;
+                        $thumbnail_image = $thumbs_dir.'/'.$file;
+                        $format="";
+//                            echo sprintf("\n<a class='photo-link' href=\"/%s/%s\">\n\t<img src=\"%s\">\n</a>",$images_dir,$file,$thumbnail_image);
+                        echo sprintf("\n<div class='ramka'><a href='/%s/%s'><img src='%s'></a></div>",$images_dir,$file,$thumbnail_image);
+//                            echo sprintf("\n<span class='ramka'><a href='/%s/%s'>\n\t<img src='%s'>\n</a></span>",$images_dir,$file,$thumbnail_image);
+                    }
+                } else { echo '<p>There are no images in this gallery.</p>'; }
 
-                    /** generate photo gallery **/
-                    $image_files = get_files($images_dir);
-                    if(count($image_files)) {
-                        $index = 0;
-                        foreach($image_files as $index => $file) {
-                            $index++;
-                            $thumbnail_image = $thumbs_dir.'/'.$file;
-                            $format="";
-                            echo sprintf("\n<a class='photo-link' href=\"/%s/%s\">\n\t<img src=\"%s\">\n</a>",$images_dir,$file,$thumbnail_image);
-                        }
-                    } else { echo '<p>There are no images in this gallery.</p>'; }
-
-                    /* function:  returns files from dir */
-                    function get_files($images_dir,$exts = array('jpg')) {
-                        $files = array();
-                        if($handle = opendir($images_dir)) {
-                            while(false !== ($file = readdir($handle))) {
-                                $extension = strtolower(get_file_extension($file));
-                                if($extension && in_array($extension,$exts)) {
-                                    $files[] = $file;
-                                }
+                /* function:  returns files from dir */
+                function get_files($images_dir,$exts = array('jpg')) {
+                    $files = array();
+                    if($handle = opendir($images_dir)) {
+                        while(false !== ($file = readdir($handle))) {
+                            $extension = strtolower(get_file_extension($file));
+                            if($extension && in_array($extension,$exts)) {
+                                $files[] = $file;
                             }
-                            closedir($handle);
                         }
-                        return $files;
+                        closedir($handle);
                     }
+                    return $files;
+                }
 
-                    /* function:  returns a file's extension */
-                    function get_file_extension($file_name) {
-                        return substr(strrchr($file_name,'.'),1);
-                    }
-                    ?>
-                </div>
-
-            </div>
+                /* function:  returns a file's extension */
+                function get_file_extension($file_name) {
+                    return substr(strrchr($file_name,'.'),1);
+                }
+                ?>
+            </span>
         </div>
     </div>
 </div>
@@ -176,7 +175,8 @@ session_start();
     window.onload = function() {
 //        baguetteBox.run('.baguetteBoxOne');
 //        baguetteBox.run('.baguetteBoxTwo');
-        baguetteBox.run('.galleryMoshna', { animation: 'fadeIn', noScrollbars: true });
+//        baguetteBox.run('.galleryMoshna', { animation: 'fadeIn', noScrollbars: true });
+        baguetteBox.run('.gallery5', { animation: 'fadeIn', noScrollbars: true });
 //        baguetteBox.run('.baguetteBoxFour', { buttons: false });
 //        baguetteBox.run('.baguetteBoxFive', { captions: function(element) {
 //                return element.getElementsByTagName('img')[0].alt;
