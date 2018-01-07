@@ -5,15 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Адаптивно-фиксированный макет веб-страницы</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <!--[if lt IE 9]>
+
+      <!-- Bootstrap Core CSS -->
+      <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/css/customs.css" rel="stylesheet">
+
+      <!-- Custom Fonts -->
+      <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+      <!-- Theme CSS -->
+      <link href="/css/gallery.css" rel="stylesheet">
+
+      <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
   <body>
+
     <header>
-      <div class="container">
+      <div class="container-fluid">
         <h4>Содержимое header</h4>
         <div>lucky dress</div>
         <div>
@@ -21,6 +34,7 @@
         </div>
       </div>
     </header>
+
     <main>
       <div class="container">
         <div class="row">
@@ -43,11 +57,13 @@
         </div>
       </div>
     </main>
+
     <footer>
       <div class="container">
         <p>Copyright &copy; Yukai 2017</p>
       </div>
     </footer>
+
     <script src="vendor/jquery/jquery.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
   </body>

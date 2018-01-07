@@ -108,21 +108,28 @@ session_start();
                 /** settings **/
                 $images_dir = 'img/sessions/dayOne';
                 $thumbs_dir = 'img/sessions/dayOne/thumbs';
+                printImgList($images_dir,$thumbs_dir);
+                echo "\n";
+                ///////////////////////////////////////////////////
+                $images_dir = 'img/sessions/dayTwo';
+                $thumbs_dir = 'img/sessions/dayTwo/thumbs';
+                printImgList($images_dir,$thumbs_dir);
+                ///////////////////////////////////////////////////
 
-                /** generate photo gallery **/
-                $image_files = get_files($images_dir);
-                if(count($image_files)) {
-                    $index = 0;
-                    foreach($image_files as $index => $file) {
-                        $index++;
-                        $thumbnail_image = $thumbs_dir.'/'.$file;
-                        $format="";
-//                            echo sprintf("\n<a class='photo-link' href=\"/%s/%s\">\n\t<img src=\"%s\">\n</a>",$images_dir,$file,$thumbnail_image);
-                        echo sprintf("\n<div class='ramka'><a href='/%s/%s'><img src='%s'></a></div>",$images_dir,$file,$thumbnail_image);
-//                            echo sprintf("\n<span class='ramka'><a href='/%s/%s'>\n\t<img src='%s'>\n</a></span>",$images_dir,$file,$thumbnail_image);
-                    }
-                } else { echo '<p>There are no images in this gallery.</p>'; }
+                /* function: print the thumbs */
+                function printImgList ($inpDirPath, $outDirPath) {
+                    /** generate photo gallery **/
+                    $image_files = get_files($inpDirPath);
 
+                    if(count($image_files)) {
+                        foreach($image_files as $index => $file) {
+                            $thumbnail_image = $outDirPath.'/'.$file;
+                            echo sprintf("\n<div class='ramka'><a href='/%s/%s'><img src='%s'></a></div>",
+                                $inpDirPath,$file,$thumbnail_image);
+                        }
+                    } else { echo '<p>There are no images in this gallery.</p>'; }
+                }
+                ///////////////////////////////////////////////////
                 /* function:  returns files from dir */
                 function get_files($images_dir,$exts = array('jpg')) {
                     $files = array();
