@@ -40,7 +40,8 @@ session_start();
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <!-- Facebook Pixel Code -->
+
+    <!-- ANN Facebook Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -50,13 +51,14 @@ session_start();
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1640461006014568');
+        fbq('init', '543861295961754');
         fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-                   src="https://www.facebook.com/tr?id=1640461006014568&ev=PageView&noscript=1"
+                   src="https://www.facebook.com/tr?id=543861295961754&ev=PageView&noscript=1"
         /></noscript>
-    <!-- End Facebook Pixel Code -->
+    <!-- ANN End Facebook Pixel Code -->
+
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -195,6 +197,8 @@ session_start();
 //        }
     };
 </script>
+
+
 
 </body>
 </html>

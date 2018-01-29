@@ -7,44 +7,6 @@ $langPack = require 'data/cfg/lang.php';
 $lang='pl';
 $langPack=$langPack[$lang];
 session_start();
-
-  //Если форма отправлена
-  if(isset($_POST['submit'])) {
-    if(trim($_POST['name']) == '') { $hasError = true;  } else { $username = trim($_POST['name']); }
-    if(trim($_POST['phone']) == '') { $hasError = true; } else { $usertel  = trim($_POST['phone']); }
-    if(trim($_POST['email']) == '')  { $hasError = true;
-    } else if (!eregi("^[A-Z0-9._%-]+@[A-Z0-9._%-]+\.[A-Z]{2,4}$", trim($_POST['email']))) { $hasError = true;
-    } else { $usermail = trim($_POST['email']); }
-    if(trim($_POST['message']) == '') { $hasError = true;
-    } else { if(function_exists('stripslashes')) { $comments = stripslashes(trim($_POST['message'])); } else { $comments = trim($_POST['message']); } }
-
-    if(!isset($hasError)) {
-      $sendto   = $cfg['form']['to'];
-
-      // creating headers
-      $subject  = $cfg['form']['subject'];
-      $headers  = "From: "    . strip_tags($usermail) . "\r\n";
-      $headers .= "Reply-To: ". strip_tags($usermail) . "\r\n";
-      $headers .= "MIME-Version: 1.0\r\n";
-      $headers .= "Content-Type: text/html;charset=utf-8 \r\n";
-
-      // creating the message body
-      $msg  = "<html><body style='font-family:Arial,sans-serif;'>";
-      $msg .= "<h2 style='font-weight:bold;border-bottom:1px dotted #ccc;'>Cообщение с сайта</h2>\r\n";
-      $msg .= "<p><strong>От:</strong> ".$username."</p>\r\n";
-      $msg .= "<p><strong>Почта:</strong> ".$usermail."</p>\r\n";
-      $msg .= "<p><strong>Phone number:</strong> ".$usertel."</p>\r\n\n";
-      $msg .= "<pre>".$comments."</pre>";
-      $msg .= "</body></html>";
-
-      // sending the message
-      if(@mail($sendto, $subject, $msg, $headers)) { // nop
-      } else { echo "<h3>Has NOT been sent</h3>"; }
-      $emailSent = true;
-    } else {
-      echo "<h3>Has NOT been sent</h3>";
-    }
-  }
 ?>
 <head>
     <meta charset="utf-8">
@@ -63,10 +25,11 @@ session_start();
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
     <!-- Theme CSS -->
-    <link href="css/grayscale.css" rel="stylesheet">
-    <link href="css/contact.css" rel="stylesheet">
+    <link href="/css/grayscale.css" rel="stylesheet">
+    <link href="/css/contact.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -74,23 +37,25 @@ session_start();
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <!-- Facebook Pixel Code -->
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1640461006014568');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-                   src="https://www.facebook.com/tr?id=1640461006014568&ev=PageView&noscript=1"
-        /></noscript>
-    <!-- End Facebook Pixel Code -->
+
+<!-- ANN Facebook Pixel Code -->
+<script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '543861295961754');
+    fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+               src="https://www.facebook.com/tr?id=543861295961754&ev=PageView&noscript=1"
+    /></noscript>
+<!-- ANN End Facebook Pixel Code -->
+
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -124,7 +89,7 @@ session_start();
                     <li class="hidden"><a href="#page-top"></a></li>
                     <li><a class="page-scroll" href="#about">About</a></li>
                     <li><a class="page-scroll" href="#contact">Contact</a></li>
-                    <li><a class="page-scroll" href="/media_one.php">gallery</a></li>
+                    <li><a class="page-scroll" href="/media_one.php">Gallery</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -165,62 +130,73 @@ session_start();
 
     <!-- Contact Section -->
     <section id="contact">
-        <div class="row">
-                  <div class="container">
-                      <div class="row">
-                          <div class="about_our_company" style="margin: 20px 0 20px !important;">
-                              <h2><?=$langPack['contact']?></h2>
-                              <p><?=$langPack['arrange']?></p>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-lg-8">
-                              <!-- <form name="sentMessage" id="contactForm" novalidate="" action="<?php echo $_SERVER['PHP_SELF']; ?>"> -->
-                              <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" id="contactform">
-                                  <div class="row">
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <input type="text" class="form-control" placeholder="<?=$langPack['name']?> *" name="name" id="name" required="" data-validation-required-message="<?=$langPack['name']?>">
-                                              <p class="help-block text-danger"></p>
-                                          </div>
-                                          <div class="form-group">
-                                              <input type="email" class="form-control" placeholder="Your Email *" name="email" id="email" required="" data-validation-required-message="Please enter your email address.">
-                                              <p class="help-block text-danger"></p>
-                                          </div>
-                                          <div class="form-group">
-                                              <input type="tel" class="form-control" placeholder="<?=$langPack['phoneNumb']?> *" name="phone" id="phone" required="" data-validation-required-message="<?=$langPack['phoneNumb']?>">
-                                              <p class="help-block text-danger"></p>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                          <textarea class="form-control" placeholder="<?=$langPack['message']?> *" name="message" id="message" required="" data-validation-required-message="<?=$langPack['message']?>"></textarea>
-                                          <p class="help-block text-danger"></p>
-                                          </div>
-                                      </div>
-                                      <div class="clearfix"></div>
-                                      <div class="col-lg-12 text-center">
-                                          <div id="success"></div>
-                                          <button type="submit" name="submit" class="btn btn-xl get"><?=$langPack['act']?></button>
-                                          <br><br>
-                                      </div>
-                                  </div>
-                              </form>
-                          </div>
-                          <div class="col-lg-4">
-                              <div>
-                                  <strong><i class="fa fa-map-marker"></i> Address</strong>
-                                  <br>Długa 17, 31-147 Kraków<br>Pasaż Wenecki, «Szczęśliwa sukienka»
-                              </div>
-                              <div style="margin: 16px 0 16px"><strong><i class="fa fa-phone"></i> Phone Number</strong><br>+48 794 64 64 62</div>
-                              <div>
-                                  <strong><i class="fa fa-envelope"></i> Email Address</strong><br><a href="mailto:apanolga@gmail.com">info@lucky-dress.eu</a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-sm-12 text-center">
+                    <h4 class="contact-header"><?=$langPack['contact']?></h4>
+                    <div class="contact-header-small"><?=$langPack['arrange']?></div>
+                </div>
             </div>
-        <!-- </div> -->
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <form role="form" id="contactForm" data-toggle="validator" class="shake">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="<?=$langPack['name']?> *" required="required" autofocus="" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email *" required="required" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+                                        <input type="phone" class="form-control" name="phone" id="phone" placeholder="<?=$langPack['phoneNumb']?>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="10" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <textarea name="message" id="message" class="form-control" rows="6" cols="25" required="required" placeholder="<?=$langPack['message']?> *"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-md-12">
+                                    <button type="submit" id="form-submit" class="btn btn-primary pull-right contact-button"><?=$langPack['act']?>
+                                        <span class="glyphicon glyphicon-send"></span>
+                                    </button>
+                                    <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <legend><span class="glyphicon glyphicon-globe"></span> Address</legend>
+                    <address>
+                        Długa 17, 31-147 <strong>Kraków</strong><br>Pasaż Wenecki, «Szczęśliwa sukienka»<br>
+                        <abbr title="Phone">Phone no.:</abbr> (+48) 794 64 64 62
+                    </address>
+                    <address>Email: <a href="mailto:apanolga@gmail.com">info@lucky-dress.eu</a></address>
+                    <div><strong>Godziny otwarcia:</strong>
+                        <br>pon. – pt. 10:00 – 18:00
+                        <br>sob. 10:00 – 14:00
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Map Section -->
@@ -265,23 +241,28 @@ session_start();
     <footer>
         <div class="container text-center">
         	<p><div class="fb-like" data-href="https://www.facebook.com/luckydresskrakow/" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div></p>
-            <p>Copyright &copy; Yukai 2017</p>
+            <p>Copyright &copy; Yukai 2018</p>
 <div>
-
-
-
+<?php
+    include('bin/stat.php');
+?>
 </div>
         </div>
     </footer>
 
     <!-- jQuery -->
-    <script src="vendor/jquery/jquery.js"></script>
+    <script src="/vendor/jquery/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!-- Plugin JavaScript -->
-    <script src="vendor/jquery.easing.min.js"></script>
+    <script src="/vendor/jquery.easing.min.js"></script>
     <!-- Theme JavaScript -->
-    <script src="js/grayscale.min.js"></script>
+    <script src="/js/grayscale.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+
+    <script type="text/javascript" src="/js/validator.min.js"></script>
+    <script type="text/javascript" src="/js/form-scripts.js"></script>
 
 </body>
 </html>

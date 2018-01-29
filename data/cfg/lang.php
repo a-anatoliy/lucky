@@ -20,10 +20,10 @@ return array(
 			'arrange'   => 'Prosimy o wcześniejszy kontakt telefoniczny w celu umówienia się na przymierzanie sukni.',
 			'errString' => 'Błędny email adresa.',
 			'success'   => 'Wiadomość została wysłana.',
-			'phoneNumb' => 'Your phone number',
-			'message'   => 'Twoja wiadomość',
-			'name'      => 'Imię',
-			'act'       => 'Wysłać',
+			'phoneNumb' => 'Telefon',
+			'message'   => 'Treść wiadomości',
+			'name'      => 'Twoje Imię',
+			'act'       => 'Wyślij',
 			'about'     => '<p style="bukvica">Każda suknia uszyta w Lucky Dress to <b>Szczęśliwa Sukienka</b>. Wierzymy, że dobrze dobrana sukienka daje każdej z nas wyjątkowe poczucia radości z przeżywania własnej kobiecości.</p>
 <div style="bukvica">Posiadamy bogate doświadczenie w projektowaniu i krawiectwie najwyższej klasy, dzięki czemu wiemy co uszyć i jak uszyć, aby wydobyć kobiece piękno z każdej sylwetki. Śledzimy najnowsze trendy modowe i nie są nam straszne żadne, nawet najbardziej wyrafinowane projekty.</div>
 <br><div style="bukvica">Przykładamy wielką uwagę do detali i wykończenia. Do tworzenia naszych sukni wykorzystujemy najlepsze włoskie tkaniny.</div>
