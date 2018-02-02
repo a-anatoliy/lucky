@@ -1,0 +1,11 @@
+
+    http://blog.ox2.ru/php/avtorizaciya-i-rabota-sessii/
+    https://blog.foolsoft.ru/php-sozdanie-formy-vxoda-i-skript-avtorizacii-na-sajte/
+    https://htmlweb.ru/php/example/avtorizacija3.php
+    https://htmlweb.ru/php/example/avtorizacija.php
+
+    https://php.ru/forum/threads/kak-prochitat-poslednjuju-stroku-v-loge.42474/
+    http://www.php.su
+    https://www.ibm.com/developerworks/ru/library/os-php-readfiles/index.html
+    http://php.net/docs.php
+    http://php.net/manual/ru/language.constants.predefined.php

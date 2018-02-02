@@ -1,0 +1,166 @@
+<?php
+session_start(); //Запускаем сессии
+
+/**
+ * Класс для авторизации
+ * и просмотра логов
+ */
+class AuthClass {
+    private $_login = "demo"; //Устанавливаем логин
+    private $_password = "71051117131"; //Устанавливаем пароль
+
+    /**
+     * Проверяет, авторизован пользователь или нет
+     * Возвращает true если авторизован, иначе false
+     * @return boolean
+     */
+    public function isAuth() {
+        if (isset($_SESSION["is_auth"])) { //Если сессия существует
+            return $_SESSION["is_auth"]; //Возвращаем значение переменной сессии is_auth (хранит true если авторизован, false если не авторизован)
+        }
+        else return false; //Пользователь не авторизован, т.к. переменная is_auth не создана
+    }
+
+    /**
+     * @param $login
+     * @param $passwors
+     * @return bool
+     */
+
+    public function auth($login, $passwors) {
+        if ($login == $this->_login && $passwors == $this->_password) { //Если логин и пароль введены правильно
+            $_SESSION["is_auth"] = true; //Делаем пользователя авторизованным
+            $_SESSION["login"] = $login; //Записываем в сессию логин пользователя
+            return true;
+        }
+        else { //Логин и пароль не подошел
+            $_SESSION["is_auth"] = false;
+            return false;
+        }
+    }
+
+    /**
+     * Метод возвращает логин авторизованного пользователя
+     */
+    public function getLogin() {
+        if ($this->isAuth()) { //Если пользователь авторизован
+            return $_SESSION["login"]; //Возвращаем логин, который записан в сессию
+        }
+    }
+
+
+    public function out() {
+        $_SESSION = array(); //Очищаем сессию
+        session_destroy(); //Уничтожаем
+    }
+}
+
+
+class analyzeIt {
+    private $logFile;
+
+    const LOG_FILENAME = 'hitcount.txt';
+
+    public function viewFile() {
+        if ($this->checkStatFile($this::LOG_FILENAME)) {
+            $handle = @fopen($this->logFile, "r");
+            if ($handle) {
+                echo '<div class="table-responsive"><table class="table table-sm"><thead>';
+                while (($buffer = fgets($handle, 4096)) !== false) {
+                    $pieces = explode("|", $buffer);
+
+                    if ( preg_match('/\#/',$pieces[0])) {
+                        $format = '<th scope="col">%s</th>';
+                        $head = true;
+                    } else {
+                        $format = "<td class=\"table-info\" >%s</td>";
+                        $head = false;
+                    }
+                    echo '<tr>';
+                        $this->printArray($format,$pieces);
+                        if ($head) {echo '</tr></thead><tbody>';}
+                        else { echo '</tr>';}
+                }
+                echo ' </tbody></table></div>';
+                if (!feof($handle)) {
+                    echo "Error: unexpected fgets() fail\n";
+                }
+                fclose($handle);
+            } else {
+                echo "<h4>Can't open [".$this->logFile."] for reading!";
+            }
+        }
+    }
+
+    private function printArray($format,$arr) {
+        foreach ($arr as $line) {
+            printf($format."\n",trim($line));
+        }
+    }
+
+    private function checkStatFile( $filename ) {
+        $this->logFile = $_SERVER['DOCUMENT_ROOT']."/data/".$filename;
+        if( !file_exists($this->logFile) ) {
+            echo "ERROR: Stat file '".$this->logFile."'does not exists!";
+            return false;
+        } else {return true;}
+    }
+
+}
+
+
+
+$auth = new AuthClass();
+
+if (isset($_POST["login"]) && isset($_POST["password"])) { //Если логин и пароль были отправлены
+    if (!$auth->auth($_POST["login"], $_POST["password"])) { //Если логин и пароль введен не правильно
+        echo "<h4 style=\"color:red;\">Логин и пароль введен не правильно!</h4>";
+    }
+}
+
+if (isset($_GET["is_exit"])) { //Если нажата кнопка выхода
+    if ($_GET["is_exit"] == 1) {
+        $auth->out(); //Выходим
+        header("Location: ?is_exit=0"); //Редирект после выхода
+    }
+}
+?>
+
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Template</title><link href="../css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .form-signin {width: 100%;max-width: 330px;padding: 15px;margin: 0 auto;}
+    .form-signin .checkbox {font-weight: 400;}
+    .form-signin .form-control {position: relative;box-sizing: border-box;height: auto;padding: 10px;font-size: 16px;}
+    .form-signin .form-control:focus {z-index: 2;}
+    .form-signin input[type="email"] {margin-bottom: -1px;border-bottom-right-radius: 0;border-bottom-left-radius: 0;}
+    .form-signin input[type="password"] {margin-bottom: 10px;border-top-left-radius: 0;border-top-right-radius: 0;}
+</style></head>
+
+
+<?php if ($auth->isAuth()) { // Если пользователь авторизован, приветствуем:
+    echo "<body><p>Здравствуйте, " . $auth->getLogin() ."</p><hr>";
+    $log = new analyzeIt();
+    $log->viewFile();
+    echo "<br><p><a href=\"?is_exit=1\">Выйти</a></p>"; //Показываем кнопку выхода
+}
+else { //Если не авторизован, показываем форму ввода логина и пароля
+?>
+
+    <body class="text-center">
+    <form  method="post" class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" name="login" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+    </form>
+    </body>
+    </html>
+<?php } ?>

@@ -37,7 +37,7 @@ if(!isset($hasError)) {
     $msg .= "<p><strong>От:</strong> ".$username."</p>\r\n";
     $msg .= "<p><strong>Почта:</strong> ".$usermail."</p>\r\n";
     $msg .= "<p><strong>Phone number:</strong> ".$usertel."</p>\r\n\n";
-    $msg .= "<pre>".$comments."</pre>";
+    $msg .= $comments;
     $msg .= "</body></html>";
 
     // sending the message

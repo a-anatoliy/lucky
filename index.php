@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+session_start();
 define ( 'ROOT_DIR', dirname ( __FILE__ ) );
+$logFile = ROOT_DIR."/data/hitcount.txt";
 $cfg = require 'data/cfg/config.php';
 $langPack = require 'data/cfg/lang.php';
 $lang='pl';
 $langPack=$langPack[$lang];
-session_start();
+
+require 'bin/hit_counter.php';
+$hit_obj = new BT_HitCounter();
+$hit_obj->unique_visits = true;
+$hit_obj->hit_count_file = $logFile;
+
+if(!isset($_SESSION["counted"])){
+    $hit_obj->recordHit();
+    $_SESSION["counted"]=1;
+}
 ?>
 <head>
     <meta charset="utf-8">
@@ -242,11 +253,6 @@ session_start();
         <div class="container text-center">
         	<p><div class="fb-like" data-href="https://www.facebook.com/luckydresskrakow/" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div></p>
             <p>Copyright &copy; Yukai 2018</p>
-<div>
-<?php
-    include('bin/stat.php');
-?>
-</div>
         </div>
     </footer>
 
@@ -263,6 +269,5 @@ session_start();
 
     <script type="text/javascript" src="/js/validator.min.js"></script>
     <script type="text/javascript" src="/js/form-scripts.js"></script>
-
 </body>
 </html>
