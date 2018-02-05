@@ -65,23 +65,40 @@ class analyzeIt {
         if ($this->checkStatFile($this::LOG_FILENAME)) {
             $handle = @fopen($this->logFile, "r");
             if ($handle) {
+                $today = date("d");
+                $yesty = date("d")-1;
+                if($yesty && $yesty<10) { $yesty = "0".$yesty;}
+                $todayCounter=0; $yestyCounter=0;
+
                 echo '<div class="table-responsive"><table class="table table-sm"><thead>';
                 while (($buffer = fgets($handle, 4096)) !== false) {
                     $pieces = explode("|", $buffer);
 
                     if ( preg_match('/\#/',$pieces[0])) {
-                        $format = '<th scope="col">%s</th>';
-                        $head = true;
-                    } else {
-                        $format = "<td class=\"table-info\" >%s</td>";
-                        $head = false;
-                    }
-                    echo '<tr>';
+                        echo "\n<tr>";
+                        $format = "\n\t<th scope=\"col\">%s</th>";
                         $this->printArray($format,$pieces);
-                        if ($head) {echo '</tr></thead><tbody>';}
-                        else { echo '</tr>';}
+                        echo "</tr></thead><tbody>";
+                    } else {
+                        $format = "\n\t<td class=\"table-info\" ><small>%s</small></td>";
+                    }
+
+                    list($d) = explode(".",$pieces[1]);
+                    if ($d == $today) {
+//                    if ($d == $yesty) {
+                        echo "\n<tr>";
+                        $todayCounter++; $pieces[0] = $todayCounter;
+                        $this->printArray($format,$pieces);
+                        echo "\n</tr>";
+                    } elseif ($d == $yesty) { $yestyCounter++;
+                    } else { continue; }
                 }
                 echo ' </tbody></table></div>';
+                echo '<div style="padding-left: 20px"><button type="button" class="btn btn-primary text-uppercase font-weight-bold">Today: <span class="badge badge-light">'.$todayCounter.'</span><span class="sr-only">unique hosts</span></button></div>';
+//              echo '<div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Today:</strong> '.$todayCounter.'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+//                echo '<div class="alert alert-dark" role="alert">Yesterday: ['.$yestyCounter .'] </div>';
+                echo '<h5 style="padding-left: 20px">Yesterday: <span class="badge badge-secondary">'.$yestyCounter .'</span></h5>';
+
                 if (!feof($handle)) {
                     echo "Error: unexpected fgets() fail\n";
                 }
@@ -94,7 +111,7 @@ class analyzeIt {
 
     private function printArray($format,$arr) {
         foreach ($arr as $line) {
-            printf($format."\n",trim($line));
+            printf($format,trim($line));
         }
     }
 
@@ -107,7 +124,6 @@ class analyzeIt {
     }
 
 }
-
 
 
 $auth = new AuthClass();
@@ -141,7 +157,9 @@ if (isset($_GET["is_exit"])) { //Если нажата кнопка выхода
     echo "<body><p>Здравствуйте, " . $auth->getLogin() ."</p><hr>";
     $log = new analyzeIt();
     $log->viewFile();
-    echo "<br><p><a href=\"?is_exit=1\">Выйти</a></p>"; //Показываем кнопку выхода
+//    echo "<br><p><a href=\"?is_exit=1\">Выйти</a></p>"; //Показываем кнопку выхода
+    echo "<div style=\"padding-left: 30px\"><a href=\"?is_exit=1\" class=\"badge badge-danger\">Logout</a></div>"; //Показываем кнопку выхода
+    echo "<br><br><br><br>"; //Показываем кнопку выхода
 }
 else { //Если не авторизован, показываем форму ввода логина и пароля
 ?>
