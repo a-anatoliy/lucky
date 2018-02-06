@@ -108,7 +108,7 @@ class analyzeIt {
                 }
                 fclose($handle);
             } else {
-                echo "<h4>Can't open [".$this->logFile."] for reading!";
+                echo "<h4>Can't open [".$this->logFile."] for reading!</h4>";
             }
         }
     }
@@ -121,7 +121,9 @@ class analyzeIt {
 
         $country = $this->geoDB->getCountry($workStr);
 
-        if ($country) { $arr[2] = "<div align =\"center\"><b>".$country."</b></div>"; }
+        if ($country) {
+            $arr[2] = "<div align='center' title=\"".$arr[2]."\"><b>".$country."</b></div>";
+        }
         foreach ($arr as $line) {
             printf($format,trim($line));
         }
@@ -174,7 +176,7 @@ if (isset($_GET["is_exit"])) { //Если нажата кнопка выхода
     $log->viewFile();
 //    echo "<br><p><a href=\"?is_exit=1\">Выйти</a></p>"; //Показываем кнопку выхода
     echo "<div style=\"padding-left: 30px\"><a href=\"?is_exit=1\" class=\"badge badge-danger\">Logout</a></div>"; //Показываем кнопку выхода
-    echo "<br><br><br><br>"; //Показываем кнопку выхода
+    echo '<br><footer><p align="center">Copyright &copy; Yukai 2018</p></footer><script src="/vendor/jquery/jquery.js"></script><script src="/vendor/bootstrap/js/bootstrap.min.js"></script><script src="/vendor/jquery.easing.min.js"></script></body></html>';
 }
 else { //Если не авторизован, показываем форму ввода логина и пароля
 ?>
