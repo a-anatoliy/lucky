@@ -5,6 +5,10 @@ session_start(); //Запускаем сессии
  * Класс для авторизации
  * и просмотра логов
  */
+
+include('../data/SxGeo.php');
+
+
 class AuthClass {
     private $_login = "demo"; //Устанавливаем логин
     private $_password = "71051117131"; //Устанавливаем пароль
@@ -58,13 +62,13 @@ class AuthClass {
 
 class analyzeIt {
     private $logFile;
-
     const LOG_FILENAME = 'hitcount.txt';
 
     public function viewFile() {
         if ($this->checkStatFile($this::LOG_FILENAME)) {
             $handle = @fopen($this->logFile, "r");
             if ($handle) {
+                $this->setGeoObj();
                 $today = date("d");
                 $yesty = date("d")-1;
                 if($yesty && $yesty<10) { $yesty = "0".$yesty;}
@@ -110,6 +114,14 @@ class analyzeIt {
     }
 
     private function printArray($format,$arr) {
+        $workStr = $arr[2];
+        if (preg_match("/\,/",$workStr)) {
+            list($workStr) = explode(",",$workStr);
+        }
+
+        $country = $this->geoDB->getCountry($workStr);
+
+        if ($country) { $arr[2] = "<div align =\"center\"><b>".$country."</b></div>"; }
         foreach ($arr as $line) {
             printf($format,trim($line));
         }
@@ -123,8 +135,11 @@ class analyzeIt {
         } else {return true;}
     }
 
-}
+    private function setGeoObj() {
+        $this->geoDB = new SxGeo('../data/SxGeo.dat');
+    }
 
+}
 
 $auth = new AuthClass();
 
