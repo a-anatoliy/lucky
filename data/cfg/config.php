@@ -1,19 +1,19 @@
 <?php 
 return array(
     'db' => array(
-        'host' => '23159.m.tld.pl',
-        'user' => 'admin23159_lucky_dress',
-        'pass' => 'v4320942VV',
-        'name' => 'baza23159_lucky_dress' ,
+        'host' => '',
+        'user' => '',
+        'pass' => '',
+        'name' => '' ,
     ),
     'site' => array(
         'url'     => 'http://lucky-dress.eu/',
     	'defLang' => 'pl',
     ),
  'form' => array(
-//		'to'      => 'a3three@gmail.com',
-		'to'      => 'apanolga@gmail.com',
-		'from'    => 'info@lucky-dress.eu',
+//		'to'      => '',
+		'to'      => '',
+		'from'    => '',
 		'subject' => 'Запрос на встречу с сайта',
     ),
 );
