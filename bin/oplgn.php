@@ -10,8 +10,8 @@ include('../data/SxGeo.php');
 
 
 class AuthClass {
-    private $_login = "demo"; //Устанавливаем логин
-    private $_password = "71051117131"; //Устанавливаем пароль
+    private $_login = "o"; //Устанавливаем логин
+    private $_password = ""; //Устанавливаем пароль
 
     /**
      * Проверяет, авторизован пользователь или нет
